@@ -1,0 +1,68 @@
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+
+    <title>Ola</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Stardos+Stencil&display=swap" 
+    rel="stylesheet">
+</head>
+<link rel="stylesheet" type="text/css" href="dez.css" media="screen" />
+
+    <body id="body">
+
+<div id="container">
+ <select name="filmes" id="mov"> 
+    
+        <option value="0">New Hope</option>
+        <option value="1">The Empire Strikes Back</option>
+        <option value="2">Return of the Jedi</option> 
+        <option value="3">The Phantom Menace</option>    
+        <option value="4">Attack of the Clones</option>
+        <option value="5">Revenge of the Sith</option>    
+    
+    </select>
+
+    <button id="enviar">View More</button>
+
+    <div id="mostra">
+    </div>
+
+    <script id="script">
+
+    document.querySelector('#enviar').addEventListener('click', buscaApi);
+    
+
+    
+    async function buscaApi() {
+    const filme = document.querySelector('#mov').value;
+    const painel = document.querySelector('#mostra');
+    const url='https://swapi.dev/api/films/';
+    let resposta=  await fetch(url);
+    let js = await resposta.json();
+    
+    let texto = '<h1>INFORMATION</h1>';
+    texto = texto+"<br>"+js.results[filme].title + "<br>"; 
+    texto = texto+"<br>"+js.results[filme].opening_crawl + "<br>";
+
+    texto = texto+"<br>"+"DIRECTION: <div id='diretor'>"+js.results[filme].director + "</div><br>"; 
+    texto = texto+"<br>"+"PRODUCTION: "+js.results[filme].producer + "<br>"; 
+
+
+
+    painel.innerHTML=texto//js.results[filme].title;
+    
+
+    console.log(js);
+}
+
+buscaApi();
+
+ //https://swapi.dev/api/films/         ***  js.results[1].title;  ***           https://swapi.dev/documentation
+ //https://parallelum.com.br/fipe/api/v1/carros/marcas    ***  js[27].nome   *** https://deividfortuna.github.io/fipe/
+ 
+ 
+</script>
+</div></body>
+</html>
